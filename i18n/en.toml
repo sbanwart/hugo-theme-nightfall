@@ -10,6 +10,9 @@
 [published]
     other = "published"
 
+[last_updated]
+    other = "last updated"
+
 [reading_time]
     other = "reading time"
 

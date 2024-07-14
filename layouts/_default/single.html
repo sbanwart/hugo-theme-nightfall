@@ -25,9 +25,26 @@
                 {{ $formattedDate := .Date.Format "2006-01-02" }}
                 <dd><time datetime="{{ $formattedDate }}">{{ .Date | time.Format ":date_long" }}</time></dd>
             {{ end }}
+            {{ if .Params.last_updated }}
+                <dt>{{ i18n "last_updated" }}</dt>
+                {{ $formattedDate := .Params.last_updated.Format "2006-01-02" }}
+                <dd><time datetime="{{ $formattedDate }}">{{ .Params.last_updated | time.Format ":date_long" }}</time></dd>
+            {{ end }}
             {{ if .Site.Params.readingTime | default true }}
                 <dt>{{ i18n "reading_time" }}</dt>
                 <dd>{{ i18n "reading_time_desc" .ReadingTime }}</dd>
+            {{ end }}
+            {{ if .Params.status }}
+                {{ $statusInfo := dict
+                    "seedling" (dict "emoji" "🌱" "label" "Seedling")
+                    "budding" (dict "emoji" "🌿" "label" "Budding")
+                    "evergreen" (dict "emoji" "🌳" "label" "Evergreen")
+                }}
+
+                {{ with index $statusInfo .Params.status }}
+                    <dt>{{ .label }}</dt>
+                    <dd>{{ .emoji }} {{ .label }}</dd>
+                {{ end }}
             {{ end }}
         </dl>
     </section>
